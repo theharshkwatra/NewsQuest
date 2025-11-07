@@ -1,0 +1,93 @@
+.holo-container {
+  position: relative;
+  display: inline-block;
+}
+
+.holo-inner {
+  position: relative;
+  background: rgba(10, 20, 35, 0.45);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  overflow: hidden;
+}
+
+/* Glow Color Variants */
+.holo-cyan { border-color: rgba(0, 255, 255, 0.35); }
+.holo-blue { border-color: rgba(70, 130, 255, 0.35); }
+.holo-purple { border-color: rgba(170, 90, 255, 0.35); }
+.holo-pink { border-color: rgba(255, 90, 170, 0.35); }
+.holo-green { border-color: rgba(90, 255, 170, 0.35); }
+
+/* Hover Glow */
+.holo-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0,255,255,0.2), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Scanline */
+.holo-scanline {
+  position: absolute;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.25), transparent);
+  pointer-events: none;
+}
+
+/* Corner Marks */
+.corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: rgba(0,255,255,0.5);
+  border-style: solid;
+}
+.corner-tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.corner-tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.corner-bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.corner-br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+/* Grid Overlay */
+.holo-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image:
+    linear-gradient(rgba(0, 255, 255, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.35) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Content Layer */
+.holo-content {
+  position: relative;
+  z-index: 2;
+  padding: 18px 20px;
+  color: white;
+}
+
+/* Outer Glow */
+.holo-outer-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  filter: blur(35px);
+  opacity: 0.6;
+  border-radius: 16px;
+  transition: opacity 0.3s;
+}
+
+.holo-outer-cyan { background: linear-gradient(135deg, rgba(0,255,255,0.4), transparent); }
+.holo-outer-blue { background: linear-gradient(135deg, rgba(70,130,255,0.4), transparent); }
+.holo-outer-purple { background: linear-gradient(135deg, rgba(170,90,255,0.4), transparent); }
+.holo-outer-pink { background: linear-gradient(135deg, rgba(255,90,170,0.4), transparent); }
+.holo-outer-green { background: linear-gradient(135deg, rgba(90,255,170,0.4), transparent); }
+
+.holo-container:hover .holo-outer-glow {
+  opacity: 0.85;
+}

@@ -1,0 +1,14 @@
+.data-stream-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.data-stream-line {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, cyan, transparent);
+}

@@ -1,0 +1,188 @@
+.loading-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #020617;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Animated background */
+.bg-animated {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Grid */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.1;
+  background-image: linear-gradient(rgba(6, 182, 212, 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.4) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Scanlines */
+.scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(6, 182, 212, 0.2) 2px,
+    rgba(6, 182, 212, 0.2) 4px
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Logo rings */
+.ring {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
+
+.ring-cyan {
+  border: 2px solid rgba(6, 182, 212, 0.6);
+}
+
+.ring-purple {
+  border: 2px solid rgba(139, 92, 246, 0.6);
+}
+
+.logo-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+}
+
+.logo-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom right, #06b6d4, #9333ea);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  color: white;
+}
+
+/* Brand text */
+.brand-title {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-align: center;
+}
+
+.brand-title-faint {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.brand-gradient {
+  background: linear-gradient(to right, #06b6d4, #60a5fa, #9333ea);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.brand-sub {
+  text-align: center;
+  color: rgba(6, 182, 212, 0.6);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* Loading progress */
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.loading-text {
+  color: rgba(6, 182, 212, 0.8);
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.loading-dots {
+  display: inline-flex;
+  margin-left: 5px;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background: #06b6d4;
+  border-radius: 50%;
+  margin: 0 1px;
+}
+
+.progress-bar {
+  width: 300px;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #06b6d4, #3b82f6, #9333ea);
+  filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.5));
+}
+
+/* System log */
+.system-log {
+  color: rgba(6, 182, 212, 0.4);
+  font-family: monospace;
+  font-size: 12px;
+  text-align: center;
+  line-height: 18px;
+}
+
+/* Corner labels */
+.corner-info {
+  position: absolute;
+  font-family: monospace;
+  font-size: 10px;
+  color: rgba(6, 182, 212, 0.25);
+  text-transform: uppercase;
+}
+
+.corner-info.tl {
+  top: 20px;
+  left: 20px;
+}
+
+.corner-info.br {
+  bottom: 20px;
+  right: 20px;
+}
