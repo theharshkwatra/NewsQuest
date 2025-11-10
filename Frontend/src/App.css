@@ -106,9 +106,14 @@
 }
 
 /* HUD */
-.hud-wrap { position: absolute; left: 0; right: 0; z-index: 50; padding: 24px; }
-.hud-inner { max-width: 1200px; margin: 0 auto; }
-.hud-content { padding: 12px 16px; }
+.hud-wrap {position: relative; margin: 0 auto; width: 90vw; z-index: 50; padding: 20px;}
+.hud-inner {
+  width: 100%;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hud-content {padding: 12px 16px; width: 60vw;}
 .hud-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
 .brand { display: flex; align-items: center; gap: 16px; }
@@ -134,7 +139,7 @@
 .brand-sub { color: rgba(56,189,248,0.6); font-size: 12px; letter-spacing: .2em; }
 
 .state-pill {
-  display: inline-flex; align-items: center; gap: 8px;
+  align-items: center; gap: 8px;
   padding: 8px 16px; border-radius: 999px;
   border: 1px solid rgba(6,182,212,0.35);
   background: rgba(6,182,212,0.12);
@@ -155,8 +160,8 @@
 
 /* Map zone */
 .map-wrap {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  padding-top: 100px; padding-bottom: 128px; z-index: 1;
+  position: relative; display: flex; align-items: center; justify-content: center;
+  padding-top: 3vw; padding-bottom: 128px; z-index: 1;
 }
 .map-anim { position: relative; }
 .map-card-wrap { position: relative; }
@@ -170,11 +175,11 @@
 
 /* Bottom controls */
 .bottom-wrap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 50; padding: 24px; }
-.bottom-inner { max-width: 1200px; margin: 0 auto; }
-.bottom-row { display: flex; align-items: stretch; justify-content: space-between; gap: 24px; }
+.bottom-inner {margin: 0 auto; }
+.bottom-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 
 /* Vehicle selector */
-.veh-sel { padding: 12px; }
+.veh-sel { padding: 12px; width: 20vw;}
 .veh-row { display: flex; align-items: stretch; gap: 8px; }
 .veh-btn {
   position: relative; flex: 1 1 0;

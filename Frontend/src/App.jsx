@@ -290,12 +290,9 @@ export default function App() {
             <HolographicPanel>
               <div className="map-card">
                 <Map
-                  mapboxAccessToken="pk.eyJ1IjoiaGFyc2hrd2F0cmEiLCJhIjoiY21ocHR6djhuMG8zbDJscW9lbHh4NzNyaiJ9.VmsKlftsbG1RLmfp32-RgQ"
-                  style={{
-                    width: "500px",
-                    height: "500px",
-                    borderRadius: "15px"
-                  }}
+                 mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
+                  style={{ width: "550px", height: "500px", borderRadius: "14px" }}
+                  
                   initialViewState={{
                     longitude: lng,
                     latitude: lat,
