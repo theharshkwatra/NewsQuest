@@ -32,9 +32,18 @@ export default function LandingPage() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
+        console.log("Logging out..."); // 🧩 Debug line
+
+        // Remove the stored token
         localStorage.removeItem("token");
-        navigate("/auth");
+
+        // Check if token is gone
+        console.log("Token after removal:", localStorage.getItem("token"));
+
+        // Redirect to login page
+        window.location.href = "/auth";
     };
+
 
     const handleKeyPress = useCallback(
         (event) => {
@@ -214,7 +223,7 @@ export default function LandingPage() {
                 onClick={handleLogout}
                 style={{
                     position: "absolute",
-                    top: "20px",
+                    top: "80px",
                     right: "20px",
                     zIndex: 100,
                     background: "#00b3ff",

@@ -81,18 +81,65 @@
   position: relative; z-index: 1;
 }
 .ticker-led { width: 8px; height: 8px; border-radius: 999px; background: white; }
-.ticker-label-text { color: white; text-transform: uppercase; letter-spacing: .12em; font-size: 14px; font-weight: 600; }
+.ticker-label-text { color: white; text-transform: uppercase; letter-spacing: .12em; font-size: 14px; font-weight: 600;}
 
 .ticker-rail { flex: 1; overflow: hidden; position: relative; }
-.ticker-track {
+/* .ticker-track {
   position: absolute; left: 0; top: 50%; transform: translateY(-50%);
   white-space: nowrap; display: inline-flex; align-items: center;
   animation: tickerMove 45s linear infinite;
-}
-@keyframes tickerMove {
+} */
+/* @keyframes tickerMove {
   0% { transform: translate(0, -50%); }
   100% { transform: translate(-50%, -50%); }
+} */ 
+/* Container for ticker */
+.ticker-rail {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background: rgba(10, 15, 28, 0.85);
 }
+
+/* Inner track that moves */
+.ticker-track {
+  display: inline-block;
+  white-space: nowrap;
+  animation: tickerScroll 45s linear infinite;
+}
+
+/* Individual ticker items */
+.ticker-item {
+  display: inline-block;
+  padding: 0 2rem;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* The small glowing dot before each text */
+.ticker-item .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #00eaff;
+  border-radius: 50%;
+  margin-right: 8px;
+  box-shadow: 0 0 6px #00eaff;
+}
+
+/* Keyframes for infinite scroll */
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .ticker-item {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 0 32px; color: #d6f3ff; font-size: 14px;
