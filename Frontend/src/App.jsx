@@ -1,24 +1,26 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import EnhancedIndiaMap from "./components/EnhancedIndiaMap";          // ensure default export
-import NewsVehicles from "./components/NewsVehicles";                 // ensure default export
-import ParticleBackground from "./components/ParticleBackground";     // ensure default export
-import DataStream from "./components/DataStream";                     // ensure default export
-import HolographicPanel from "./components/HolographicPanel";         // ensure default export
-import SlideInNewsPanel from "./components/SlideInNewsPanel";         // ensure default export
-import SlideInSourcesPanel from "./components/SlideInSourcesPanel";   // ensure default export
+import EnhancedIndiaMap from "./components/EnhancedIndiaMap";
+import NewsVehicles from "./components/NewsVehicles";
+import ParticleBackground from "./components/ParticleBackground";
+import DataStream from "./components/DataStream";
+import HolographicPanel from "./components/HolographicPanel";
+import SlideInNewsPanel from "./components/SlideInNewsPanel";
+import SlideInSourcesPanel from "./components/SlideInSourcesPanel";
 import LoadingState from "./components/LoadingState";
 import 'mapbox-gl/dist/mapbox-gl.css'
-import Map from "react-map-gl/mapbox";
+import Map, { Source, Layer } from "react-map-gl/mapbox";
 import { Truck, Plane, Zap, Radio, Activity, Globe } from "lucide-react";
 import "./App.css";
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
   const [carPosition, setCarPosition] = useState({ x: 300, y: 150 });
   const [currentState, setCurrentState] = useState("");
   const [isMoving, setIsMoving] = useState(false);
   const [showNews, setShowNews] = useState(false);
-  const [activeVehicle, setActiveVehicle] = useState("van"); // 'van' | 'helicopter' | 'drone'
+  const [activeVehicle, setActiveVehicle] = useState("van");
   const [isLoading, setIsLoading] = useState(true);
   const [showNewsPanel, setShowNewsPanel] = useState(false);
   const [showSourcesPanel, setShowSourcesPanel] = useState(false);
@@ -290,16 +292,36 @@ export default function App() {
             <HolographicPanel>
               <div className="map-card">
                 <Map
-                 mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
+                  mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
                   style={{ width: "550px", height: "500px", borderRadius: "14px" }}
-                  
+
                   initialViewState={{
                     longitude: lng,
                     latitude: lat,
                     zoom: 2.5
                   }}
                   mapStyle="mapbox://styles/mapbox/streets-v9"
-                />
+                >
+                  <Source id="india-states" type="geojson" data="/data/india_states.geojson">
+                    <Layer
+                      id="states-fill"
+                      type="fill"
+                      paint={{
+                        "fill-color": "#00bcd4",
+                        "fill-opacity": 0.25
+                      }}
+                    />
+                    <Layer
+                      id="states-outline"
+                      type="line"
+                      paint={{
+                        "line-color": "#00eaff",
+                        "line-width": 1.5
+                      }}
+                    />
+                  </Source>
+
+                </Map>
                 <NewsVehicles
                   position={carPosition}
                   isMoving={isMoving}
