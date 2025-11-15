@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+// src/pages/LandingPage.jsx
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import EnhancedIndiaMap from "../components/EnhancedIndiaMap";
 import NewsVehicles from "../components/NewsVehicles";
@@ -14,6 +15,9 @@ import Map, { Source, Layer } from "react-map-gl/mapbox";
 import { Truck, Plane, Zap, Radio, Activity, Globe } from "lucide-react";
 import "./LandingPage.css";
 
+// NEW import
+import StateDetector from "../components/StateDetector";
+
 export default function LandingPage() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isRegistering, setIsRegistering] = useState(false);
@@ -26,10 +30,13 @@ export default function LandingPage() {
     const [showNewsPanel, setShowNewsPanel] = useState(false);
     const [showSourcesPanel, setShowSourcesPanel] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [lng, setLng] = useState(70.9629)
+    const [lng, setLng] = useState(75.9629)
     const [lat, setLat] = useState(22.5937)
 
     const navigate = useNavigate();
+
+    // NEW: ref to the Map component (react-map-gl)
+    const mapRef = useRef(null);
 
     const handleLogout = () => {
         console.log("Logging out..."); // 🧩 Debug line
@@ -43,7 +50,6 @@ export default function LandingPage() {
         // Redirect to login page
         window.location.href = "/auth";
     };
-
 
     const handleKeyPress = useCallback(
         (event) => {
@@ -195,7 +201,7 @@ export default function LandingPage() {
                                     {news}
                                 </span>
                             ))}
-                            {/* Duplicate for seamless loop */}
+
                             {[
                                 "Multi-source news verification now live across all Indian states",
                                 "Navigate the map using arrow keys to explore regional news",
@@ -204,7 +210,7 @@ export default function LandingPage() {
                                 "Interactive map now supports helicopter and drone views",
                                 "Stay informed with unbiased news coverage from NewsQuest",
                             ].map((news, i) => (
-                                <span key={`dup-${i}`} className="ticker-item">
+                                <span key={i} className="ticker-item">
                                     <span className="dot" />
                                     {news}
                                 </span>
@@ -236,7 +242,6 @@ export default function LandingPage() {
             >
                 Logout
             </button>
-
 
             {/* Top HUD */}
             <motion.div
@@ -328,15 +333,17 @@ export default function LandingPage() {
                         <HolographicPanel>
                             <div className="map-card">
                                 <Map
+                                    ref={mapRef} // <-- pass the ref so StateDetector can access map.unproject
                                     mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
-                                    style={{ width: "550px", height: "500px", borderRadius: "14px" }}
-
+                                    style={{ width: "550px", height: "500px", borderRadius: "14px"}}
+                                    
                                     initialViewState={{
                                         longitude: lng,
                                         latitude: lat,
-                                        zoom: 2.5
+                                        zoom: 2.8
                                     }}
-                                    mapStyle="mapbox://styles/mapbox/streets-v9"
+                                    // mapStyle="mapbox://styles/mapbox/streets-v9"
+                                    className = "main-map"
                                 >
                                     <Source id="india-states" type="geojson" data="/data/india_state.geojson">
                                         <Layer
@@ -358,6 +365,16 @@ export default function LandingPage() {
                                     </Source>
 
                                 </Map>
+
+                                {/* NEW: StateDetector will detect which state the car is in and call setCurrentState */}
+                                <StateDetector
+                                  carPosition={carPosition}
+                                  mapRef={mapRef}
+                                  setCurrentState={setCurrentState}
+                                  setShowNewsPanel={setShowNewsPanel}
+                                  setShowSourcesPanel={setShowSourcesPanel}
+                                />
+
                                 <NewsVehicles
                                     position={carPosition}
                                     isMoving={isMoving}

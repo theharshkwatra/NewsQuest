@@ -1,4 +1,11 @@
 /* Screen root */
+/* .main-map{
+  width: 550px  !important;
+  height: 500px !important;
+  background-color: purple;
+  z-index: 1234;
+} */
+
 .app-root {
   position: relative;
   width: 100vw;
@@ -209,16 +216,22 @@
 .map-wrap {
   position: relative; display: flex; align-items: center; justify-content: center;
   padding-top: 3vw; padding-bottom: 128px; z-index: 1;
+  /* background-color: #00eaff; */
 }
-.map-anim { position: relative; }
+.map-anim { position: relative; 
+/* background-color: #34d399; */
+}
 .map-card-wrap { position: relative; }
 .map-card-glow {
   position: absolute; inset: -24px;
   background: radial-gradient(ellipse at center, rgba(6,182,212,0.12), transparent 60%),
               radial-gradient(ellipse at bottom right, rgba(168,85,247,0.12), transparent 60%);
-  filter: blur(24px); border-radius: 24px; z-index: 0;
+  filter: blur(24px); border-radius: 24px; z-index: 2;
+  /* background-color: red; */
 }
-.map-card { position: relative; border-radius: 16px; overflow: hidden; z-index: 1; }
+.map-card { position: relative; border-radius: 16px; overflow: hidden; z-index: 1; 
+/* background-color: red; */
+}
 
 /* Bottom controls */
 .bottom-wrap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 50; padding: 24px; }
