@@ -7,17 +7,16 @@ export async function fetchNews(query, n = 5) {
   return data.articles || [];
 }
 
-// Call Python pipeline via backend to generate article
 export async function generateArticleFromPipeline(query, article = null) {
   try {
     const response = await fetch(
-      "http://localhost:5000/api/gemini/generate",
+      `${import.meta.env.VITE_BACKEND_URL}/api/gemini/generate`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userMessage: `Generate article for: ${query}`,
-          article: article  // Send the article as fallback
+          article: article  
         }),
       }
     );
