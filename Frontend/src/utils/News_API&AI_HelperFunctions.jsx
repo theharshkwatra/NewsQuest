@@ -1,4 +1,4 @@
-const GNEWS_API_KEY = "31aec11820766482a0bfe118571c2fe1";
+const GNEWS_API_KEY = "ecbc42cbe4977b6e8295a08b27e19715";
 
 export async function fetchNews(query, n = 5) {
   const url = `https://gnews.io/api/v4/search?q=${query}&lang=en&max=${n}&apikey=${GNEWS_API_KEY}`;
