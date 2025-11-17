@@ -16,10 +16,16 @@ const getBackendUrl = () => {
 };
 
 export async function fetchNews(query, n = 5) {
-  const url = `https://gnews.io/api/v4/search?q=${query}&lang=en&max=${n}&apikey=${GNEWS_API_KEY}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.articles || [];
+  try {
+    const backendUrl = getBackendUrl();
+    const url = `${backendUrl}/api/news/search?q=${encodeURIComponent(query)}&n=${n}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.articles || [];
+  } catch (error) {
+    console.error("News fetch error:", error);
+    return [];
+  }
 }
 
 export async function generateArticleFromPipeline(query, article = null) {

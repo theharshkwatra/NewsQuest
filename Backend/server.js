@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import geminiRoutes from "./routes/geminiRoutes.js";
+import newsRoutes from "./routes/newsRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -26,6 +27,7 @@ app.use(express.json());
 connectDB();
 
 // Routes
+app.use("/api/news", newsRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/gemini", geminiRoutes);
 
