@@ -10,10 +10,15 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: ["https://news-quest-theta.vercel.app"],
+  origin: [
+    "https://news-quest-theta.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:5174"
+  ],
   methods: "GET,POST,PUT,DELETE",
   credentials: true
 }));
+
 app.use(express.json());
 
 // Connect MongoDB
