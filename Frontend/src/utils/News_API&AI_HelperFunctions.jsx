@@ -62,10 +62,18 @@ export async function generateArticleFromPipeline(query, article = null) {
     
     console.log("[generateArticle] Response status:", response.status);
     
-    const json = await response.json();
+    const text = await response.text();
+    let json = {};
+    try {
+      json = JSON.parse(text);
+    } catch (e) {
+      console.warn("[generateArticle] Response not JSON, using raw text", e);
+      json = { content: null, raw_pipeline_output: text };
+    }
     console.log("[generateArticle] Response data:", json);
-    
-    const content = json?.content || "No article generated";
+
+    // Prefer explicit content; otherwise show raw pipeline output if available
+    const content = json?.content || json?.raw_pipeline_output || "No article generated";
     const metrics = {
       biasScore: json?.biasScore ?? 50,
       credibilityScore: json?.credibilityScore ?? json?.credibility ?? 75,

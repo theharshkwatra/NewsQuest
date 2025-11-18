@@ -104,7 +104,7 @@ function runNewsPipeline(query, numArticles = 5) {
   return new Promise((resolve, reject) => {
     const pythonScript = path.join(__dirname, "../news_pipeline_simple.py");
     
-    const pythonProcess = spawn("python", [pythonScript], {
+    const pythonProcess = spawn("python3", [pythonScript], {
       env: { ...process.env, PYTHONUNBUFFERED: "1" }
     });
 
@@ -143,6 +143,8 @@ function runNewsPipeline(query, numArticles = 5) {
         }
         
         const result = JSON.parse(jsonMatch[0]);
+        // attach raw output for debugging/display purposes
+        result.__raw_output = output;
         resolve(result);
       } catch (e) {
         reject(new Error("Failed to parse Python JSON: " + e.message));
@@ -210,14 +212,57 @@ router.post("/generate", async (req, res) => {
         sources: result.sources_count || 0,
         biasScore: biasScore,
         credibilityScore: credibilityScore,
-        biasCategory: biasCategory
+        biasCategory: biasCategory,
+        raw_pipeline_output: result.__raw_output || null
       });
     } catch (pipelineErr) {
       console.error("Pipeline failed:", pipelineErr.message);
-      return res.status(500).json({
+
+      // If pipeline failed but the frontend provided a single article, use a local fallback
+      if (article) {
+        console.log("Using fallback summarizer for provided article");
+        const analysis = analyzeArticle(article);
+        const biasScore = analysis.biasScore;
+        const credibilityScore = analysis.credibilityScore;
+        const biasCategory = analysis.biasCategory;
+
+        const title = article.title || "Article";
+        const source = article.source?.name || "Unknown Source";
+        const date = article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : "Unknown Date";
+
+        const combined = [title, article.description || '', article.content || ''].join('. ');
+        const summaryBody = summarizeText(combined, 7) || (article.description || article.content || 'No useful summary available.');
+
+        const parts = [];
+        parts.push(`**${title}**`);
+        parts.push("");
+        parts.push(`Source: ${source}`);
+        parts.push(`Published: ${date}`);
+        parts.push("");
+        parts.push(`**Summary:**`);
+        parts.push(summaryBody);
+
+        const content = parts.join("\n\n");
+
+        return res.json({
+          content,
+          success: true,
+          sources: 1,
+          biasScore,
+          credibilityScore,
+          biasCategory,
+          fallback: true
+        });
+      }
+
+      // If no article provided, return the python stderr/stdout as the content so frontend can display it.
+      const errMsg = pipelineErr?.message || String(pipelineErr);
+      return res.json({
+        content: errMsg,
+        success: false,
         error: "Pipeline execution failed",
-        message: pipelineErr.message,
-        success: false
+        message: errMsg,
+        raw_pipeline_output: errMsg
       });
     }
 
