@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .pin { fill: #1E73BE; }
+      .letter { fill: #FFFFFF; font-family: Arial, sans-serif; font-weight: 700; }
+    </style>
+  </defs>
+
+  <!-- Location pin -->
+  <path class="pin" d="M128 8C82 8 44 46 44 92c0 58 63 129 78 144a8 8 0 0 0 12 0c15-15 78-86 78-144 0-46-38-84-84-84z"/>
+
+  <!-- Bigger N letter -->
+  <text x="50%" y="45%" text-anchor="middle" dominant-baseline="middle" class="letter" font-size="120">
+    N
+  </text>
+</svg>

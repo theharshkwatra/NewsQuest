@@ -168,7 +168,7 @@ export default function LandingPage() {
                             }}
                             transition={{ duration: 2, repeat: Infinity }}
                         />
-                        <span className="ticker-label-text">Live Feed</span>
+                        <span className="ticker-label-text">What's New</span>
                     </div>
 
                     <div className="ticker-rail">
